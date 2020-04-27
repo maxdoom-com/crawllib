@@ -18,6 +18,7 @@ def load(url):
 
 def slugify(text):
     """slugifies a string"""
+    
     import unidecode, re
     
     text = unidecode.unidecode(text).lower()
@@ -34,17 +35,30 @@ def slugify(text):
 
 def preprend_if_missing(domain, url):
     """preprend a protocol://domain/ to a url, if it is missing"""
+    
     if not url.startswith(domain):
         return domain + url
     else:
         return url
 
 
-def download( url, target ):
-    import requests, shutil
-
-    response = requests.get(url, stream=True)
-    with open(target, 'wb') as out_file:
-        shutil.copyfileobj(response.raw, out_file)
+def download( url, filename, overwrite=False, mkdir=True ):
+    """download an url as filename.
+    will overwrite existing files, if overwrite is true.
+    makes missing dirs if mkdir is true."""
     
+    import requests, shutil, os
+
+    if filename.startswith('/'):
+        filename = filename[1:]
+
+    if filename.find('/') != -1 and mkdir:
+        dir = '/'.join(filename.split('/')[0:-1])
+        os.makedirs(dir, exist_ok=True)
+
+    if not os.path.exists(filename) or overwrite:
+        response = requests.get(url, stream=True)
+        with open(filename, 'wb') as out_file:
+            shutil.copyfileobj(response.raw, out_file)
+        del response
 
