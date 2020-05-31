@@ -14,5 +14,6 @@ setup(
         'requests',
         'unidecode',
         'lxml',
+        'cssselect',
     ],
 )
