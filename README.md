@@ -31,7 +31,7 @@ for a in html.cssselect("a"):
 ```py
 from crawllib import *
 
-download( "https://www.iana.org/_img/2013.1/iana-logo-header.svg", slugify("i a n a")+".svg" )
+content_type = download( "https://www.iana.org/_img/2013.1/iana-logo-header.svg", slugify("i a n a")+".svg" )
 download( "https://www.iana.org/_img/2013.1/iana-logo-header.svg", "/_img/2013.1/iana-logo-header.svg", overwrite=True, mkdir=True )
 ```
 

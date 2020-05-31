@@ -56,9 +56,13 @@ def download( url, filename, overwrite=False, mkdir=True ):
         dir = '/'.join(filename.split('/')[0:-1])
         os.makedirs(dir, exist_ok=True)
 
+    content_type = None
+    
     if not os.path.exists(filename) or overwrite:
         response = requests.get(url, stream=True)
         with open(filename, 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)
+        content_type = headers['content-type']
         del response
-
+    
+    return content_type
