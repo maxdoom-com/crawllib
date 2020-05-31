@@ -62,7 +62,7 @@ def download( url, filename, overwrite=False, mkdir=True ):
         response = requests.get(url, stream=True)
         with open(filename, 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)
-        content_type = headers['content-type']
+        content_type = response.headers.get('content-type', None)
         del response
     
     return content_type
