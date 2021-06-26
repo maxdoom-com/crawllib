@@ -2,6 +2,7 @@ from urllib.parse import urlparse
 import re
 from .loaders import load, load_text
 from .iterators import for_one, for_all
+from .text import element2text
 
 
 class PageLoader:
@@ -111,3 +112,6 @@ class PageLoader:
         """
         
         self.make_absolute("a", "href")
+
+    def tostring(self, encoding="utf-8"):
+        return element2text(self.content, encoding)

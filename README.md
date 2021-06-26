@@ -113,6 +113,21 @@ p.make_absolute_links()
 ```
 
 
+Converting a node back to text
+------------------------------------------------------------------------
+
+```py
+from crawllib import *
+
+p = PageLoader("http://some.fake/do/main", """<html>...</html>""")
+print(p.tostring())
+
+def print_a_text(a):
+    print(element2text(a))
+
+for_all(p.content, "a", print_a_text)
+```
+
 
 Installation
 ------------------------------------------------------------------------
