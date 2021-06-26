@@ -60,7 +60,10 @@ I've added to procs to iterate over (cssselect) nodes:
 from crawllib import *
 
 p = PageLoader("https://github.com/maxdoom-com/crawllib")
-p.make_absolute_links() # will try to make all links absolute
+p.make_absolute_links()
+# Will try to make all links absolute to the given url or
+# the <base href="..."> in the html code.
+# The base-tag overrides the url when calculating the baseurl.
 
 def first_a(a):
     print(a.get("href"))
@@ -70,6 +73,26 @@ def each_div(div):
 
 for_all(p.content, "div", each_div) # will call each_div() for each <div> found
 ```
+
+## Loading a string
+
+You may now load a string as html.
+
+```py
+from crawllib import *
+
+html = load_text("""<html>...</html>""")
+```
+
+And you may use the PageLoader class as well:
+
+```py
+from crawllib import *
+
+p = PageLoader("http://some.fake/do/main", """<html>...</html>""")
+p.make_absolute_links()
+```
+
 
 
 Installation
