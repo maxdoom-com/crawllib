@@ -113,6 +113,30 @@ p.make_absolute_links()
 ```
 
 
+Storing text in a database
+------------------------------------------------------------------------
+
+I've added a simple sqlite3 database class.
+
+```py
+from crawllib import Database
+
+db = Database("my.db")
+
+db.executescript("""
+    CREATE TABLE IF NOT EXISTS pages ( id INTEGER PRIMARY KEY, url NOT NULL, text);
+""")
+
+db.execute("INSERT INTO pages ( url, text ) VALUES(:url, :text)",{
+    'url': "http://some.fake/do/main",
+    'text': """<html>...</html>"
+})
+
+for page in db.select("SELECT * FROM pages"):
+    print(page)
+```
+
+
 Converting a node back to text
 ------------------------------------------------------------------------
 
