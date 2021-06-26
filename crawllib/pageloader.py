@@ -1,6 +1,6 @@
 from urllib.parse import urlparse
 import re
-from .loaders import load, load_text
+from .loaders import load, load_text, GetPageError
 from .iterators import for_one, for_all
 from .text import element2text
 
@@ -21,6 +21,7 @@ class PageLoader:
         self.content   = None
         self.url       = url
         self.baseurl   = url
+        self._domain   = None
 
         # load the content
         if text is not None:
@@ -34,6 +35,9 @@ class PageLoader:
             url = base.get("href", None)
             if url is not None and url != "/":
                 self.baseurl = url
+
+        if self.content is None:
+            raise GetPageError(f"error loading page {url}")
 
         for_one(self.content, "base", set_baseurl)
 
@@ -58,6 +62,7 @@ class PageLoader:
         hostname = parsed.hostname
         port     = parsed.port
         path     = parsed.path
+        self._domain = hostname
 
         ##
         ## calulating the base url
@@ -70,7 +75,10 @@ class PageLoader:
         else:
             self._baseurl += '/'.join( path.split('/')[:-1] )
 
-
+    @property
+    def domain(self):
+        return self._domain
+    
     def _load_url(self, url):
         self.content   = load(url)
 
