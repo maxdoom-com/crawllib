@@ -14,7 +14,7 @@ These python libraries are required:
 - lxml
 
 
-Example
+Example 1
 ------------------------------------------------------------------------
 
 ... getting all links
@@ -24,7 +24,7 @@ from crawllib import *
 
 html = load("http://example.org/")
 for a in html.cssselect("a"):
-    print( preprend_if_missing("http://example.org/", a.get("href")) )
+    print( a.get("href") )
 ```
 
 
