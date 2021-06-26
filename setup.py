@@ -15,5 +15,6 @@ setup(
         'unidecode',
         'lxml',
         'cssselect',
+        'urllib',
     ],
 )
