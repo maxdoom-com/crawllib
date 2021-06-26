@@ -1,9 +1,11 @@
-# crawllib
+crawllib
+========================================================================
 
 A small collection of functionalities to crawl the web.
 
 
-## Requirements
+Requirements
+------------------------------------------------------------------------
 
 These python libraries are required:
 
@@ -12,7 +14,8 @@ These python libraries are required:
 - lxml
 
 
-## Example
+Example
+------------------------------------------------------------------------
 
 ... getting all links
 
@@ -24,7 +27,9 @@ for a in html.cssselect("a"):
     print( preprend_if_missing("http://example.org/", a.get("href")) )
 ```
 
-## Example 2
+
+Example 2
+------------------------------------------------------------------------
 
 ... downloading images
 
@@ -43,7 +48,10 @@ download(
 )
 ```
 
-## Use an objective approach
+
+Use an objective approach
+------------------------------------------------------------------------
+
 
 ```py
 from crawllib import *
@@ -57,7 +65,9 @@ for_all(p.content, "a", print_a) # will call print_a() for every <a> found
 
 ```
 
-## Iterating with callbacks
+
+Iterating with callbacks
+------------------------------------------------------------------------
 
 I've added to procs to iterate over (cssselect) nodes:
 
@@ -82,7 +92,8 @@ def each_div(div):
 for_all(p.content, "div", each_div) # will call each_div() for each <div> found
 ```
 
-## Loading a string
+Loading a string
+------------------------------------------------------------------------
 
 You may now load a string as html.
 
@@ -104,7 +115,7 @@ p.make_absolute_links()
 
 
 Installation
-------------
+------------------------------------------------------------------------
 
 ```sh
 pip install git+https://github.com/maxdoom-com/crawllib
