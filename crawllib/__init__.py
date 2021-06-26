@@ -1,13 +1,16 @@
 """A small collection of functionalities to crawl the web."""
 
+import requests, io
+from lxml import etree
+import unidecode, re
+import requests, shutil, os
+
+
 class GetPageError(Exception):
     """An error indicating that we were unable to load a page"""
 
 def load(url):
     """Loads a page from a url."""
-
-    import requests, io
-    from lxml import etree
     
     r = requests.get(url)
     if not r.status_code == 200:
@@ -18,8 +21,6 @@ def load(url):
 
 def slugify(text):
     """slugifies a string"""
-    
-    import unidecode, re
     
     text = unidecode.unidecode(text).lower()
     slug = re.sub(r'[\W_]+', '-', text)
@@ -47,8 +48,6 @@ def download( url, filename, overwrite=False, mkdir=True ):
     will overwrite existing files, if overwrite is true.
     makes missing dirs if mkdir is true."""
     
-    import requests, shutil, os
-
     if filename.startswith('/'):
         filename = filename[1:]
 
