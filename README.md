@@ -12,7 +12,8 @@ These python libraries are required:
 - requests
 - unidecode
 - lxml
-
+- cssselect
+- urllib
 
 Example 1
 ------------------------------------------------------------------------
