@@ -12,7 +12,7 @@ def load(url):
     Loads a page from an url.
     """
     
-    r = requests.get(url)
+    r = requests.get(url, headers={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36',})
     if not r.status_code == 200:
         raise( GetPageError(f"Error while downloading {url}. Status code: {r.status_code}. Response: {r}.") )
 
