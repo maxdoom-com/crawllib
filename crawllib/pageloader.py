@@ -20,8 +20,10 @@ class PageLoader:
         self._baseurl  = None
         self.content   = None
         self.url       = url
-        self.baseurl   = url
+        # self.baseurl   = url
         self._domain   = None
+        self._headers  = None
+        self._status   = None
 
         # load the content
         if text is not None:
@@ -40,6 +42,8 @@ class PageLoader:
             raise GetPageError(f"error loading page {url}")
 
         for_one(self.content, "base", set_baseurl)
+        if self.baseurl is None:
+            self.baseurl = url
 
 
     @property
@@ -70,17 +74,14 @@ class PageLoader:
         self._baseurl = f"{scheme}://{hostname}"
         if port is not None:
             self._baseurl += ":"+port
-        if path.endswith('/'):
-            self._baseurl += path
-        else:
-            self._baseurl += '/'.join( path.split('/')[:-1] )
+        self._baseurl += "/"
 
     @property
     def domain(self):
         return self._domain
     
     def _load_url(self, url):
-        self.content   = load(url)
+        (self.content, self._headers, self._status) = load(url)
 
     def _load_text(self, text):
         self.content   = load_text(text)
@@ -123,3 +124,12 @@ class PageLoader:
 
     def tostring(self, encoding="utf-8"):
         return element2text(self.content, encoding)
+
+    @property
+    def headers(self):
+        return self._headers
+
+    @property
+    def status(self):
+        return self._status
+

@@ -6,4 +6,5 @@ from .downloads import download
 from .pageloader import PageLoader
 from .iterators import for_one, for_all
 from .database import Database
+from .keyvaluestorage import KeyValueStorage
 from .text import element2text

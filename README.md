@@ -23,7 +23,7 @@ Example 1
 ```py
 from crawllib import *
 
-html = load("http://example.org/")
+(html, headers, status_code) = load("http://example.org/")
 for a in html.cssselect("a"):
     print( a.get("href") )
 ```
@@ -151,6 +151,65 @@ def print_a_text(a):
     print(element2text(a))
 
 for_all(p.content, "a", print_a_text)
+```
+
+
+A simple key-value storage
+------------------------------------------------------------------------
+
+Create a store:
+
+```py
+db.create("Tests", "foo", "bar", "blub")
+```
+---
+
+Drop a store:
+
+```py
+db.drop("Tests")
+```
+
+---
+
+Store key/value pairs:
+
+```py
+db.store("Tests", "test-1-2-3", {"foo":1, "bar":2, "blub":3})
+db.store("Tests", "test-1-2-3", {"foo":3, "bar":2, "blub":1})
+db.store("Tests", "test-1-2-3 A", {"foo":1, "bar":2, "blub":3})
+
+---
+
+Remove an entry:
+
+```py
+db.remove("Tests", "test-1-2-3 A")
+```
+
+---
+
+Print a record:
+
+```py
+print(db.get("Tests", "test-1-2-3"))
+```
+
+---
+
+Get all entries:
+
+```py
+for entry in db.all(self, store):
+    print(entry)
+```
+
+---
+
+Clear a store:
+
+```py
+db.empty("Tests")
 ```
 
 
